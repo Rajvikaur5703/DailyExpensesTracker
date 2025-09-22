@@ -58,8 +58,8 @@
       <!-- Footer -->
        <footer>
         <div class="footer-contact">
-            <h4>Contact</h4>
-            <p>Email: support@expense-tracker.com</p>
+            <h4>Email</h4>
+            <p>kaurrajvi34@gmail.com & syedsadiya1711@gmail.com</p>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2025 Daily Expenses Tracker || Developed by <b>Rajvi Kaur</b> & <b>Syed Sadiya</b></p>
