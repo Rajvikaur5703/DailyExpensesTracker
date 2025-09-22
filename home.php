@@ -14,7 +14,6 @@
             <a href="#">Home</a>
             <a href="#features">Features</a>
             <a href="about.php">About Us</a>
-            <a href="login.php" class="nav-btn">Login</a>
         </nav>
     </header>
 
@@ -67,3 +66,4 @@
        </footer>
 </body>
 </html>
+
