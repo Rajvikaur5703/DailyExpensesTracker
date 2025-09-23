@@ -1,15 +1,28 @@
 <?php
 session_start();
-include 'config/config.php';
-
+// Prevent browser from caching login page
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Expires: 0");
+header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
+header("Expires: 0");
+
+//if already logged in,redirect to dashboard
+if(isset($_SESSION['user_id']))
+{
+    header("Location: dashboard.php");
+    exit();
+}
+
+//handle login from submit
+
+
+
 
 $error="";
 $email_value="";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    include 'config/config.php';
     $email = trim($_POST['email']);
     $password = $_POST['password'];
     $email_value=htmlspecialchars($email); //keep value safe for re-display

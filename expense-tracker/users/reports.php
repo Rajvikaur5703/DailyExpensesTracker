@@ -1,17 +1,7 @@
 <?php
 session_start();
 include '../config/config.php';
-
-// Prevent back button caching
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
-
-// Redirect if not logged in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login.php");
-    exit();
-}
+include '../includes/session_check.php';
 
 $user = $_SESSION['user_id'];
 

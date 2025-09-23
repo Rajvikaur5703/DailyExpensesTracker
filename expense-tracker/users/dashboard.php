@@ -1,18 +1,7 @@
 <?php 
 session_start(); 
 include '../config/config.php'; 
-
-// Prevent back button after logout/session expire 
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0"); 
-header("Cache-Control: post-check=0, pre-check=0", false); 
-header("Pragma: no-cache"); 
-header("Expires: 0"); 
-
-// Redirect if not logged in 
-if (!isset($_SESSION['user_id'])) { 
-    header("Location: ../login.php"); 
-    exit(); 
-} 
+include '../includes/session_check.php';
 
 $user = $_SESSION['user_id']; 
 
@@ -77,7 +66,7 @@ $recent_expenses_query = "SELECT e.expense_id, e.amount, e.expense_date, c.categ
                           FROM expenses e 
                           JOIN categories c ON e.category_id = c.category_id 
                           WHERE e.user_id='$user' 
-                          ORDER BY e.expense_date DESC LIMIT 5"; 
+                          ORDER BY e.expense_date DESC"; 
 $recent_expenses_result = $conn->query($recent_expenses_query); 
 $recent_expenses = $recent_expenses_result->fetch_all(MYSQLI_ASSOC); 
 
@@ -149,43 +138,8 @@ $categories = $categories_result->fetch_all(MYSQLI_ASSOC);
         </div> 
 
         <!-- Bottom Section -->
-        <div class="bottom-section"> 
-            <!-- LEFT: Recent Expenses --> 
-            <div class="recent-expenses"> 
-                <div class="card"> 
-                    <h3>🧾 Recent Expenses</h3> 
-                    <?php if ($recent_expenses): ?> 
-                        <table> 
-                            <thead> 
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Category</th>
-                                    <th>Amount (₹)</th>
-                                    <th>Action</th>
-                                </tr> 
-                            </thead> 
-                            <tbody> 
-                                <?php foreach ($recent_expenses as $row): ?> 
-                                    <tr> 
-                                        <td><?= date("d M Y", strtotime($row['expense_date'])) ?></td> 
-                                        <td><?= htmlspecialchars($row['category_name']) ?></td> 
-                                        <td>₹<?= number_format($row['amount'], 2) ?></td> 
-                                        <td>
-                                            <a href="dashboard.php?delete_expense=<?= $row['expense_id'] ?>" 
-                                               onclick="return confirm('Are you sure you want to delete this expense?');" 
-                                               class="delete-btn">🗑️</a>
-                                        </td>
-                                    </tr> 
-                                <?php endforeach; ?> 
-                            </tbody> 
-                        </table> 
-                    <?php else: ?> 
-                        <p>No expenses found</p> 
-                    <?php endif; ?> 
-                </div> 
-            </div> 
-
-            <!-- RIGHT: Add Expense Form --> 
+        <div class="bottom-section">             
+                <!-- LEFT: Add Expense Form --> 
             <div class="add-expense"> 
                 <div class="card"> 
                     <h3>➕ Add Expense</h3> 
@@ -210,6 +164,46 @@ $categories = $categories_result->fetch_all(MYSQLI_ASSOC);
                     </form> 
                 </div> 
             </div> 
+            
+            <!-- RIGHT: Recent Expenses --> 
+            <div class="recent-expenses">
+                <div class="card"> 
+                    <h3>🧾 Recent Expenses</h3> 
+                    <?php if ($recent_expenses): ?> 
+                        <div class="table-container">
+
+                        
+                        <table> 
+                            <thead> 
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Category</th>
+                                    <th>Amount (₹)</th>
+                                    <th></th>
+                                </tr> 
+                            </thead> 
+                            <tbody> 
+                                <?php foreach ($recent_expenses as $row): ?> 
+                                    <tr> 
+                                        <td><?= date("d M Y", strtotime($row['expense_date'])) ?></td> 
+                                        <td><?= htmlspecialchars($row['category_name']) ?></td> 
+                                        <td>₹<?= number_format($row['amount'], 2) ?></td> 
+                                        <td>
+                                            <a href="dashboard.php?delete_expense=<?= $row['expense_id'] ?>" 
+                                               onclick="return confirm('Are you sure you want to delete this expense?');" 
+                                               class="delete-btn">🗑️</a>
+                                        </td>
+                                    </tr> 
+                                <?php endforeach; ?> 
+                            </tbody> 
+                        </table> 
+                    <?php else: ?> 
+                        <p>No expenses found</p> 
+                    <?php endif; ?> 
+                </div> 
+            </div> 
+        </div>
+            
         </div> 
     </div> 
 

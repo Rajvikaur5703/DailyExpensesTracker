@@ -92,23 +92,28 @@ header div { color: #555; font-size: 14px; }
     gap: 20px;
     flex-wrap: wrap;
 }
-
-/* Recent Expenses */
-.recent-expenses {
-    flex: 1;
-}
-
 .recent-expenses .card {
     background: #fff;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    max-height: 310px;
+    display: flex;
+    flex-direction: column;
 }
 
 .recent-expenses h3 {
     margin-bottom: 12px;
     font-size: 16px;
     color: #1e3a8a;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* Scroll only inside the table */
+.recent-expenses .table-container {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* Table Styling */
@@ -129,12 +134,14 @@ header div { color: #555; font-size: 14px; }
     background: #f0f2f5;
     color: #333;
     font-weight: bold;
+    position: sticky;
+    top: 0;      /* keep header fixed */
+    z-index: 2;
 }
 
 .recent-expenses table tr:hover {
     background: #f9fafb;
 }
-
 /* Add Expense */
 .add-expense {
     flex: 1;
