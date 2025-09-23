@@ -1,3 +1,13 @@
+<?php
+session_start();
+include '../config/config.php';
+
+$sql="select * from users";
+$result=mysqli_query($conn,$sql);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +21,6 @@
         <h1>Admin Panel</h1>
         <nav>
             <a href="admin_dashboard.php" style="color:white; margin-right:15px;">Dashboard</a>
-            <a href="manage_users.php" style="color:white;">Manage Users</a>
         </nav>
     </header>
 
@@ -22,44 +31,31 @@
         <table>
             <thead>
                 <tr>
-                    <th>User Id</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Role</th>
-                    <th>Actions</th>
+                    <th>Gender</th>
+                    <th>DOB</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Rajvi Kaur</td>
-                    <td>rajvi@gmail.com</td>
-                    <td>User</td>
-                    <td class="actions">
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Syed Sadiya</td>
-                    <td>sadiya@gmail.com</td>
-                    <td>Admin</td>
-                    <td class="actions">
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Amit Sharma</td>
-                    <td>amit@gmail.com</td>
-                    <td>User</td>
-                    <td class="actions">
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
-                    </td>
-                </tr>
+                <?php
+                if($result->num_rows > 0)
+                {
+                    while($row = $result->fetch_assoc())
+                    {
+                        echo"<tr>";
+                        echo"<td>".$row['name']."</td>";
+                        echo"<td>".$row['email']."</td>";
+                        echo"<td>".$row['Gender']."</td>";
+                        echo"<td>".$row['DOB']."</td>";
+                        echo"</tr>";
+                    }
+                }
+                else
+                {
+                    echo "<tr><td colspan='5'>No expenses found</td></tr>";
+                }
+                ?>
             </tbody>
         </table>
     </div>
