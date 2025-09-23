@@ -1,0 +1,159 @@
+/* ===== Body & Container ===== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 30px;
+    color: #333;
+}
+
+/* ===== Top Bar ===== */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.top-bar h1 {
+    font-size: 28px;
+    margin: 0;
+}
+
+/* ===== Download Button ===== */
+.download-btn {
+    background: linear-gradient(135deg, #36A2EB, #4BC0C0);
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    transition: all 0.3s ease;
+}
+
+.download-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, #2a87c7, #3fb1b7);
+}
+
+.download-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(54,162,235,0.4);
+}
+
+/* ===== Summary Cards ===== */
+.summary-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.summary-card {
+    background-color: #fff;
+    flex: 1 1 22%;
+    margin: 10px;
+    padding: 25px 20px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.summary-card h3 {
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: #555;
+}
+
+.summary-card p {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    color: #36A2EB;
+}
+
+/* ===== Charts Wrapper ===== */
+.charts-wrapper {
+    display: flex;
+    flex-wrap: nowrap; /* keep them side by side */
+    justify-content: space-between;
+    gap: 20px; /* space between cards */
+    margin-bottom: 40px;
+}
+
+/* Category Distribution Card (Doughnut) */
+.chart-box.category {
+    background: linear-gradient(135deg, #36A2EB, #4BC0C0);
+    color: #fff;
+    flex: 1 1 48%; /* takes about half of the row */
+    padding: 40px 25px;
+    border-radius: 22px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.chart-box.category:hover {
+    transform: translateY(-5px);
+}
+
+.chart-box.category h2 {
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.chart-box.category canvas {
+    background-color: rgba(255,255,255,0.1);
+    padding: 25px;
+    max-width: 90%;
+    margin: auto;
+}
+
+/* Bar Chart Card (Last 7 Days) */
+.chart-box.bar-chart {
+    background-color: #fff;
+    flex: 1 1 48%; /* takes about half of the row */
+    padding: 35px 25px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.chart-box.bar-chart:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+}
+
+.chart-box.bar-chart h2 {
+    margin-bottom: 25px;
+    font-size: 22px;
+    color: #333;
+    font-weight: 600;
+}
+
+.chart-box.bar-chart canvas {
+    max-width: 100%;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+    .charts-wrapper {
+        flex-wrap: wrap; /* stack cards on smaller screens */
+    }
+
+    .chart-box.category, .chart-box.bar-chart {
+        flex: 1 1 90%;
+        margin-bottom: 20px;
+    }
+}

@@ -1,0 +1,125 @@
+/* ========== BASE STYLE ========== */
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f6fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* ========== LOGIN BOX ========== */
+.loginbox {
+    background: #ffffff;
+    padding: 50px;         /* increased padding */
+    border-radius: 10px;
+    width: 500px;           /* increased width */
+    border-top: 4px solid #3b82f6; 
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* slightly deeper shadow */
+    transition: all 0.3s ease;
+}
+
+.loginbox:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* ========== TITLE ========== */
+.login-title h1 {
+    margin: 0;
+    font-size: 28px;       /* slightly larger title */
+    text-align: center;
+    font-weight: bold;
+    color: #3b82f6;
+}
+
+.login-title p {
+    text-align: center;
+    font-size: 15px;
+    color: #555;
+    margin-top: 5px;
+}
+
+/* ========== FORM FIELDS ========== */
+.login-main {
+    margin-top: 25px;
+}
+
+.login-main label {
+    display: block;
+    margin-top: 15px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.login-main input[list="roles"],
+.login-main input[type="text"],
+.login-main input[type="password"] {
+    width: 100%;
+    padding: 14px;          /* bigger input */
+    margin-top: 5px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 15px;
+    background: #f9fafb;
+    transition: border 0.3s ease;
+}
+
+.login-main input:focus {
+    border-color: #3b82f6;
+    outline: none;
+}
+
+/* ========== LOGIN BUTTON ========== */
+button {
+    width: 100%;
+    background: #3b82f6;
+    color: white;
+    padding: 14px;          /* bigger button */
+    margin-top: 25px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #2563eb;
+    transform: scale(1.03);
+}
+
+/* ========== LINKS ========== */
+p {
+    text-align: center;
+    font-size: 15px;
+    margin-top: 15px;
+    color: #555;
+}
+
+p a {
+    color: #f97316;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+p a:hover {
+    color: #ea580c;
+    text-decoration: underline;
+}
+
+.error{
+    color: red !important;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    background-color: #ffe5e5;
+    padding: 8px;
+    border: 1px solid red;
+    border-radius: 5px;
+}

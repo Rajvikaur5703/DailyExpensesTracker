@@ -1,0 +1,74 @@
+/* ===== BASE ===== */
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f2f5; /* matches dashboard background */
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 80px auto 50px auto; /* space from top for header */
+    background: #ffffff;
+    padding: 25px 30px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    border-radius: 10px;
+}
+
+/* ===== TITLE ===== */
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #1e3a8a; /* dashboard accent color */
+}
+
+/* ===== TABLE ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+table th, table td {
+    padding: 12px 10px;
+    border: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+table th {
+    background: #3b82f6; /* primary dashboard gradient color */
+    color: #fff;
+    font-weight: 600;
+}
+
+table tr:nth-child(even) {
+    background: #f7f9fb;
+}
+
+table tr:hover {
+    background: #e0f0ff; /* hover effect for row */
+}
+
+/* ===== BACK BUTTON ===== */
+.btn-back {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.back-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #3b82f6; /* matches dashboard primary */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: #2563eb; /* darker shade on hover */
+    transform: scale(1.05);
+}

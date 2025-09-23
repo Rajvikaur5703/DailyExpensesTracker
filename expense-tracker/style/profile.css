@@ -1,0 +1,139 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: #f0f4f8; /* soft neutral background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* ===== PROFILE CARD ===== */
+.profile-card {
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    width: 400px; /* compact width */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-top: 4px solid #0ea5e9; /* teal/cyan accent */
+    transition: all 0.2s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== TITLE ===== */
+.title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #0ea5e9; /* teal/cyan title */
+}
+
+/* ===== FORM ===== */
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #3d3a42; /* soft purple */
+    font-size: 0.9rem;
+}
+
+
+.form-group input,
+.form-group select {
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: #f9fafb;
+    color: #1f2937;
+    transition: border 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #0ea5e9;
+    background: #fff;
+}
+
+/* ===== PASSWORD TOGGLE ===== */
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 35px;
+    cursor: pointer;
+    color: #22d3ee; /* matches labels */
+    font-size: 0.85rem;
+}
+
+.password-toggle:hover {
+    color: #0ea5e9;
+}
+
+/* ===== FORM BUTTONS ===== */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    gap: 8px;
+}
+
+.btn {
+    flex: 1;
+    padding: 10px 0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-light {
+    background: #fff;
+    border: 1px solid #0ea5e9;
+    color: #0ea5e9;
+    text-align: center;
+}
+
+.btn-light:hover {
+    background: #0ea5e9;
+    color: #fff;
+}
+
+.btn-primary {
+    background: #0ea5e9;
+    color: #fff;
+    border: none;
+}
+
+.btn-primary:hover {
+    opacity: 0.95;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .profile-card {
+        width: 90%;
+        padding: 20px;
+    }
+}
