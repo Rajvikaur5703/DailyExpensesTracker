@@ -2,138 +2,166 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 body {
-    background: #f0f4f8; /* soft neutral background */
+    background: #9db9c6;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; 
     min-height: 100vh;
 }
 
-/* ===== PROFILE CARD ===== */
+/*Profile card*/ 
 .profile-card {
-    background: #ffffff;
-    padding: 25px 30px;
-    border-radius: 12px;
-    width: 400px; /* compact width */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    border-top: 4px solid #0ea5e9; /* teal/cyan accent */
-    transition: all 0.2s ease;
+    background: white;
+    padding: 45px 35px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    max-width: 1220px;
+    width: 100%;
 }
 
-.profile-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-}
-
-/* ===== TITLE ===== */
 .title {
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 100px;
     text-align: center;
-    color: #0ea5e9; /* teal/cyan title */
+    color: #222;
 }
 
-/* ===== FORM ===== */
+.title i {
+    color: #007bff;
+    margin-right: 6px;
+}
+
+/* Form */
 .profile-form {
+    margin-bottom: 50px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 20px;
 }
 
-.form-group {
+.form-row
+{
     display: flex;
+    gap: 1rem;
+}
+
+.form-row .form-group {
+
+    flex: 1;
+    /* display: flex;
     flex-direction: column;
-    position: relative;
+    position: relative; */
 }
 
 .form-group label {
-    font-weight: 600;
-    margin-bottom: 4px;
-    color: #3d3a42; /* soft purple */
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #444;
     font-size: 0.9rem;
 }
 
-
-.form-group input,
-.form-group select {
-    padding: 10px 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    background: #f9fafb;
-    color: #1f2937;
-    transition: border 0.2s ease;
+.form-group select
+{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 9px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    outline: none;
+    font-size: 0.95rem;
+    background: #fafafa;
+    transition: border 0.2s ease, background 0.2s ease;
+    /* width: 50%;  */
+    /*padding: 15px;
+    margin-top: 7px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px; */
 }
 
-.form-group input:focus,
-.form-group select:focus {
-    border-color: #0ea5e9;
+.form-group label i {
+    color: #007bff;
+    margin-right: 4px;
+}
+
+.form-group input {
+    width: 100%;
+    box-sizing: border-box;
+    /* width: 50%; */
+    padding: 9px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    outline: none;
+    font-size: 0.95rem;
+    background: #fafafa;
+    transition: border 0.2s ease, background 0.2s ease;
+}
+
+.form-group input:focus {
+    border-color: #007bff;
     background: #fff;
 }
 
-/* ===== PASSWORD TOGGLE ===== */
+/*Password toggle*/
 .password-toggle {
     position: absolute;
-    right: 10px;
-    top: 35px;
+    right: 12px;
+    top: 37px;
     cursor: pointer;
-    color: #22d3ee; /* matches labels */
-    font-size: 0.85rem;
+    color: #888;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
 }
 
 .password-toggle:hover {
-    color: #0ea5e9;
+    color: #007bff;
 }
 
-/* ===== FORM BUTTONS ===== */
+/*Buttons */
 .form-actions {
     display: flex;
     justify-content: space-between;
-    margin-top: 15px;
-    gap: 8px;
+    margin-top: 12px;
+    gap: 10px;
 }
 
 .btn {
     flex: 1;
     padding: 10px 0;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
+    border-radius: 6px;
+    border: 1px solid transparent;
     cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
     transition: all 0.2s ease;
 }
 
+/*Cancel button (outline blue) */
 .btn-light {
     background: #fff;
-    border: 1px solid #0ea5e9;
-    color: #0ea5e9;
+    color: #007bff;
+    border: 1px solid #007bff;
     text-align: center;
 }
 
 .btn-light:hover {
-    background: #0ea5e9;
+    background: #007bff;
     color: #fff;
 }
 
+/*Save button (solid blue)*/ 
 .btn-primary {
-    background: #0ea5e9;
+    background: #007bff;
     color: #fff;
-    border: none;
+    border: 1px solid #007bff;
 }
 
 .btn-primary:hover {
-    opacity: 0.95;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-    .profile-card {
-        width: 90%;
-        padding: 20px;
-    }
+    background: #0069d9;
+    border-color: #0062cc;
 }
