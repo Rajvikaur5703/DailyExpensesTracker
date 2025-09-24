@@ -67,19 +67,24 @@ $user = $result->fetch_assoc();
         <h2 class="title"><i class="fa-solid fa-circle-user"></i> My Profile</h2>
 
         <form action="profile.php" method="POST" class="profile-form">
+
+        <div class="form-row">
             <div class="form-group">
                 <label><i class="fa-solid fa-id-card"></i> Full Name</label>
                 <input type="text" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
             </div>
 
             <div class="form-group">
+                <label><i class="fa-solid fa-cake-candles"></i> City</label>
+                <input type="text" name="city" placeholder="Enter your city">
+            </div>
+            
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
                 <label><i class="fa-solid fa-envelope"></i> Email</label>
                 <input type="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
-            </div>
-
-            <div class="form-group">
-                <label><i class="fa-solid fa-cake-candles"></i> Date of Birth</label>
-                <input type="date" name="dob" value="<?php echo htmlspecialchars($user['dob']); ?>">
             </div>
 
             <div class="form-group">
@@ -91,15 +96,24 @@ $user = $result->fetch_assoc();
                 </select>
             </div>
 
-            <div class="form-group">
-                <label><i class="fa-solid fa-lock"></i> New Password</label>
-                <input type="password" name="password" placeholder="Enter new password (leave blank to keep same)">
-            </div>
+        </div>
 
+        <div class="form-row">
             <div class="form-group">
+                <label><i class="fa-solid fa-cake-candles"></i> Date of Birth</label>
+                <input type="date" name="dob" value="<?php echo htmlspecialchars($user['dob']); ?>">
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fa-solid fa-lock"></i>Mobile No.</label>
+                <input type="number" name="mobile" placeholder="Enter your phone number">
+            </div>
+            <!-- <div class="form-group">
                 <label><i class="fa-solid fa-user-tag"></i> Role</label>
                 <input type="text" name="role" value="<?php echo htmlspecialchars($user['role']); ?>">
-            </div>
+            </div> -->
+
+        </div>
 
             <!-- Buttons -->
             <div class="form-actions">
@@ -107,6 +121,6 @@ $user = $result->fetch_assoc();
                 <button type="submit" class="btn btn-primary" name="save"><i class="fa-solid fa-floppy-disk"></i> Save</button>
             </div>
         </form>
-    </section>
+    </section> 
 </body>
-</html>
+</html> 
