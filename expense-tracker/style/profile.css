@@ -1,167 +1,120 @@
+/* ===== RESET ===== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    font-family: "Segoe UI", Arial, sans-serif;
 }
 
 body {
-    background: #9db9c6;
+    background: #f4f6f9;
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     min-height: 100vh;
 }
 
-/*Profile card*/ 
+/* ===== CARD ===== */
 .profile-card {
-    background: white;
-    padding: 45px 35px;
+    background: #fff;
+    padding: 25px 30px;
     border-radius: 10px;
-    border: 1px solid #e5e7eb;
-    max-width: 1220px;
-    width: 100%;
+    width: 600px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .title {
     font-size: 1.5rem;
     font-weight: 600;
-    margin-bottom: 100px;
+    color: #2c3e50;
     text-align: center;
-    color: #222;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
 }
 
-.title i {
-    color: #007bff;
-    margin-right: 6px;
-}
-
-/* Form */
+/* ===== FORM LAYOUT ===== */
 .profile-form {
-    margin-bottom: 50px;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
-.form-row
-{
+.form-group {
     display: flex;
-    gap: 1rem;
-}
-
-.form-row .form-group {
-
-    flex: 1;
-    /* display: flex;
     flex-direction: column;
-    position: relative; */
 }
 
 .form-group label {
-    font-weight: 500;
-    margin-bottom: 5px;
-    color: #444;
     font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #34495e;
 }
 
-.form-group select
-{
-    width: 100%;
-    box-sizing: border-box;
-    padding: 9px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    outline: none;
-    font-size: 0.95rem;
-    background: #fafafa;
-    transition: border 0.2s ease, background 0.2s ease;
-    /* width: 50%;  */
-    /*padding: 15px;
-    margin-top: 7px;
+.form-group input,
+.form-group select {
+    padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px; */
-}
-
-.form-group label i {
-    color: #007bff;
-    margin-right: 4px;
-}
-
-.form-group input {
-    width: 100%;
-    box-sizing: border-box;
-    /* width: 50%; */
-    padding: 9px 12px;
-    border: 1px solid #d1d5db;
     border-radius: 6px;
-    outline: none;
-    font-size: 0.95rem;
-    background: #fafafa;
-    transition: border 0.2s ease, background 0.2s ease;
+    font-size: 0.9rem;
+    background: #fdfdfd;
+    transition: 0.2s ease;
 }
 
-.form-group input:focus {
-    border-color: #007bff;
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #3498db;
+    outline: none;
     background: #fff;
 }
 
-/*Password toggle*/
-.password-toggle {
-    position: absolute;
-    right: 12px;
-    top: 37px;
-    cursor: pointer;
-    color: #888;
-    font-size: 0.95rem;
-    transition: color 0.2s ease;
-}
-
-.password-toggle:hover {
-    color: #007bff;
-}
-
-/*Buttons */
+/* ===== BUTTONS ===== */
 .form-actions {
+    grid-column: span 2; /* full width row */
     display: flex;
-    justify-content: space-between;
-    margin-top: 12px;
+    justify-content: flex-end;
     gap: 10px;
+    margin-top: 10px;
 }
 
 .btn {
-    flex: 1;
-    padding: 10px 0;
+    padding: 10px 18px;
     border-radius: 6px;
-    border: 1px solid transparent;
+    border: none;
     cursor: pointer;
-    font-size: 0.95rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background 0.2s ease;
 }
 
-/*Cancel button (outline blue) */
-.btn-light {
-    background: #fff;
-    color: #007bff;
-    border: 1px solid #007bff;
-    text-align: center;
+.btn-cancel {
+    background: #ecf0f1;
+    color: #2c3e50;
 }
 
-.btn-light:hover {
-    background: #007bff;
+.btn-cancel:hover {
+    background: #dcdde1;
+}
+
+.btn-save {
+    background: #3498db;
     color: #fff;
 }
 
-/*Save button (solid blue)*/ 
-.btn-primary {
-    background: #007bff;
-    color: #fff;
-    border: 1px solid #007bff;
+.btn-save:hover {
+    background: #2980b9;
 }
 
-.btn-primary:hover {
-    background: #0069d9;
-    border-color: #0062cc;
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .profile-card {
+    width: 90%;
+    }
+    .profile-form {
+    grid-template-columns: 1fr;
+    }
+    .form-actions {
+    justify-content: center;
+    }
 }
