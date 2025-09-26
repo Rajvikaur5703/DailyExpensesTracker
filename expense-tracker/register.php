@@ -63,55 +63,63 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Register Page</title>
-    <link href="style/register.css" rel="stylesheet"> 
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="style/register.css">
 </head>
 <body>
-    <form method="POST" action="register.php">
-        <div class="register-box">
-            <div class="register-title">
-                <h1>💰 Expense Tracker</h1>
-                <p>Create your account</p>
-            </div>
 
-            <div class="register-main">
-                <label>Full Name</label>
-                <input type="text" name="name" placeholder="Enter your full name">
+  <div class="profile-card">
+    <h2 class="title">💰 Expense Tracker</h2>
+    <p>Create your account</p>
 
-                <label>Date of Birth</label>
-                <input type="date" name="dob" placeholder="Enter your date of birth">
+    <form class="profile-form" method="POST" action="profile.php">
 
-                <label>Gender:</label>
-                <div class="gender-option">
-                    <label>
-                        <input type="radio" name="gender" value="Male">Male
-                    </label>
-                    <label>
-                        <input type="radio" name="gender" value="Female">Female
-                    </label>
-                    <label>
-                        <input type="radio" name="gender" value="Other">Other
-                    </label>
-                </div>
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" name="name" required>
+      </div>
 
-                <label>Email</label>
-                <input type="text" name="email" placeholder="Enter your email">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" required>
+      </div>
 
-                <label>Password</label>
-                <input type="password" name="password" placeholder="Create your password(min 8 characters)">
+      <div class="form-group">
+        <label>Date of Birth</label>
+        <input type="date" name="dob" required>
+      </div>
 
-                <label>Confirm Password</label>
-                <input type="password" name="newpassword" placeholder="Confirm your password">
+      <div class="form-group">
+        <label>Gender</label>
+        <select name="gender">
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
 
-                <button type="submit" class="btn-primary">Sign Up</button>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Atleast 8 charecters needed">
+      </div>
 
-                <p class="signup">Already have an account? <a href="login.php">Sign In</a></p>
-            </div>
-        </div>
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" name="password" placeholder="Confirm your password">
+      </div>
+
+      <!-- Buttons -->
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Sign Up</button>
+        <p class="signup">Already have an account? <a href="login.php">Sign In</a></p>
+      </div>
     </form>
+  </div>
+
 </body>
 </html>
