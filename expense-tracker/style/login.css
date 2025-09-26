@@ -1,6 +1,5 @@
 body {
     font-family: "Segoe UI", Arial, sans-serif;
-    /* font-family: Arial, sans-serif; */
     background-color: #f0f9ff; /* very light sky blue */
     display: flex;
     justify-content: center;
@@ -104,3 +103,4 @@ p a:hover {
     text-decoration: underline;
     color: #0284c7;
 }
+
