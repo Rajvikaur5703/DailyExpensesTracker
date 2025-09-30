@@ -1,3 +1,28 @@
+<?php
+session_start();
+include '../config/config.php';
+// // Prevent back button after logout / session expire
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+// Redirect to login if user is not logged in
+if (!isset($_SESSION['user_id']))
+{
+    header("Location: ../login.php");
+    exit();
+}
+
+$sql="SELECT name, email, Gender, created_at FROM users WHERE DATE(created_at)=CURDATE()";
+
+$result=mysqli_query($conn,$sql);
+?>
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,36 +34,36 @@
 <body>
     <header>
         <h1>Admin Dashboard</h1>
-        <nav>
-            <a href="">Dashboard</a>
-            <a href="manage_users.php">Users</a>
-            <a href="manage_expenses.php">Expenses</a>
-            <a href="category.php">Categories</a>
-            <a href="../logout.php">Logout</a>
-        </nav>
+        <h4><div>Welcome, <?= htmlspecialchars($_SESSION['name']) ?>!
+                <a href="../logout.php"><button class="btnlogout">Logout</button></a>
+            </div>
+        </h4>
     </header>
 
     <div class="container">
         <!-- Dashboard cards -->
          <div class="cards">
+            <a href="manage_users.php">
             <div class="card">
                 <h3>Total Users</h3>
-                <p>35</p>
-            </div>
+                <!-- <p>35</p> -->
+            </div></a>
 
+            <a href="manage_expenses.php">
             <div class="card">
-                <h3>Total Expenses</h3>
-                <p>₹1,25,000</p>
-            </div>
+                <h3>Manage Expenses</h3>
+                <!-- <p>₹1,25,000</p> -->
+            </div></a>
 
+            <a href="category.php">
             <div class="card">
                 <h3>Categories</h3>
-                <p>10</p>
-            </div>
+                <!-- <p>10</p> -->
+            </div></a>
 
             <div class="card">
                 <h3>Admins</h3>
-                <p>2</p>
+                <!-- <p>2</p> -->
             </div>
          </div>
 
@@ -47,14 +72,32 @@
           <table>
             <thead>
                 <tr>
-                    <th>Users</th>
-                    <th>Actions</th>
-                    <th>Details</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Gender</th>
                     <th>Date</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <?php
+                if($result->num_rows > 0)
+                {
+                    while($row = $result->fetch_assoc())
+                    {
+                        echo"<tr>";
+                        echo"<td>".htmlspecialchars($row['name'])."</td>";
+                        echo"<td>".htmlspecialchars($row['email'])."</td>";
+                        echo"<td>".htmlspecialchars($row['Gender'])."</td>";
+                        echo"<td>".$row['created_at']."</td>";
+                        echo"</tr>";
+                    }
+                }
+                else
+                {
+                    echo "<tr><td colspan='5'>No Users Logged in Today!</td></tr>";
+                }
+                ?>
+                <!-- <tr>
                     <td>Rajvi kaur</td>
                     <td>Added Expenses</td>
                     <td>Food - ₹500</td>
@@ -65,7 +108,7 @@
                     <td>Updated Profile</td>
                     <td>Email Changed</td>
                     <td>2025-09-01</td>
-                </tr>
+                </tr> -->
             </tbody>
           </table>
     </div>
