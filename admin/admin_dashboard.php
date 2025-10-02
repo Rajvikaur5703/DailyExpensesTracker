@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id']))
     exit();
 }
 
-$sql="SELECT name, email, Gender, created_at FROM users WHERE DATE(created_at)=CURDATE()";
+$sql="SELECT name, email, Gender, DATE(created_at) AS created_at FROM users WHERE DATE(created_at)=CURDATE()";
 
 $result=mysqli_query($conn,$sql);
 ?>
@@ -38,7 +38,7 @@ $result=mysqli_query($conn,$sql);
                 <a href="../logout.php"><button class="btnlogout">Logout</button></a>
             </div>
         </h4>
-    </header>
+    </header> 
 
     <div class="container">
         <!-- Dashboard cards -->
