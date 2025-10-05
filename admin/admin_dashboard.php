@@ -1,22 +1,28 @@
 <?php
 session_start();
 include '../config/config.php';
-// // Prevent back button after logout / session expire
+
+// Prevent back button after logout / session expire
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
 // Redirect to login if user is not logged in
-if (!isset($_SESSION['user_id']))
-{
+if (!isset($_SESSION['user_id'])) {
     header("Location: ../login.php");
     exit();
 }
 
-$sql="SELECT name, email, Gender, DATE(created_at) AS created_at FROM users WHERE DATE(created_at)=CURDATE()";
-
-$result=mysqli_query($conn,$sql);
+$sql = "
+    SELECT u.name, u.email, u.Gender, u.created_at
+    FROM users u
+    JOIN user_logins ul ON u.user_id = ul.user_id
+    WHERE DATE(ul.login_time) = CURDATE()
+    AND u.role = 'user'
+";
+$result = mysqli_query($conn, $sql);
 ?>
+
 
 
 
@@ -38,7 +44,7 @@ $result=mysqli_query($conn,$sql);
                 <a href="../logout.php"><button class="btnlogout">Logout</button></a>
             </div>
         </h4>
-    </header> 
+    </header>
 
     <div class="container">
         <!-- Dashboard cards -->
@@ -60,11 +66,11 @@ $result=mysqli_query($conn,$sql);
                 <h3>Categories</h3>
                 <!-- <p>10</p> -->
             </div></a>
-
+            <a href="admin_profile.php">
             <div class="card">
                 <h3>Admins</h3>
                 <!-- <p>2</p> -->
-            </div>
+            </div></a>
          </div>
 
          <!-- Recent Acitivity Table -->
@@ -76,39 +82,32 @@ $result=mysqli_query($conn,$sql);
                     <th>Email</th>
                     <th>Gender</th>
                     <th>Date</th>
+                    <th>Report</th>
                 </tr>
             </thead>
             <tbody>
-                <?php
-                if($result->num_rows > 0)
+                <!-- <button type="submit">View Report</button> -->
+            <?php
+                if ($result->num_rows > 0) 
                 {
-                    while($row = $result->fetch_assoc())
+                    while ($row = $result->fetch_assoc()) 
                     {
-                        echo"<tr>";
-                        echo"<td>".htmlspecialchars($row['name'])."</td>";
-                        echo"<td>".htmlspecialchars($row['email'])."</td>";
-                        echo"<td>".htmlspecialchars($row['Gender'])."</td>";
-                        echo"<td>".$row['created_at']."</td>";
-                        echo"</tr>";
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($row['name']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['Gender']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
+                        echo "<td><form method='POST' action='generate_report.php'>
+                                    <button type='submit' class='btnreport' name='generate_report'>View Report</button>
+                                  </form></td>";
+                        echo "</tr>";
                     }
-                }
+                } 
                 else
                 {
-                    echo "<tr><td colspan='5'>No Users Logged in Today!</td></tr>";
+                    echo "<tr><td colspan='4'>No users logged in today.</td></tr>";
                 }
                 ?>
-                <!-- <tr>
-                    <td>Rajvi kaur</td>
-                    <td>Added Expenses</td>
-                    <td>Food - ₹500</td>
-                    <td>2025-09-01</td>
-                </tr>
-                <tr>
-                    <td>Syed Sadiya</td>
-                    <td>Updated Profile</td>
-                    <td>Email Changed</td>
-                    <td>2025-09-01</td>
-                </tr> -->
             </tbody>
           </table>
     </div>
