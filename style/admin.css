@@ -109,3 +109,19 @@ th{
 tr:hover{
     background: #f9fafb;
 }
+
+.btnreport{
+    background: #02889a;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s,transform 0.2s;
+}
+
+.btnreport:hover{
+    background: #09b8d0;
+    transform: scale(1.05);
+}
