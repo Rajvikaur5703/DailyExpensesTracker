@@ -4,6 +4,28 @@ include '../config/config.php';
 include '../includes/session_check.php';
 require('../FPDF-master/fpdf.php');
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['generate_report'])) {
+    $user_id = $_POST['user_id'] ?? null;
+
+    if ($user_id) {
+        // Fetch user details
+        $stmt = $conn->prepare("SELECT name, email FROM users WHERE user_id = ?");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+            // Generate report logic here
+            echo "Report generated for " . htmlspecialchars($user['name']);
+        } else {
+            echo "User not found.";
+        }
+    } else {
+        echo "Invalid user ID.";
+    }
+}
+
 $user = $_SESSION['user_id'];
 
 // ===== Fetch User Info =====
