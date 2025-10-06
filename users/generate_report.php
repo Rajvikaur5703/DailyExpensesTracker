@@ -1,39 +1,11 @@
 <?php
 session_start();
 include '../config/config.php';
-include '../includes/session_check.php';
 require('../FPDF-master/fpdf.php');
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['generate_report'])) {
-    $user_id = $_POST['user_id'] ?? null;
-
-    if ($user_id) {
-        // Fetch user details
-        $stmt = $conn->prepare("SELECT name, email FROM users WHERE user_id = ?");
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $user = $result->fetch_assoc();
-            // Generate report logic here
-            echo "Report generated for " . htmlspecialchars($user['name']);
-        } else {
-            echo "User not found.";
-        }
-    } else {
-        echo "Invalid user ID.";
-    }
-}
 
 $user = $_SESSION['user_id'];
 
-// ===== Fetch User Info =====
-$user_query = $conn->query("SELECT name FROM users WHERE user_id='$user'");
-$user_data = $user_query->fetch_assoc();
-$username = $user_data['name'] ?? "Unknown";
-
-// ===== Fetch Summary =====
+// Fetch summary amounts
 $today = $conn->query("SELECT SUM(amount) AS total FROM expenses 
                        WHERE user_id='$user' AND DATE(expense_date)=CURDATE()")
                        ->fetch_assoc()['total'] ?? 0;
@@ -47,80 +19,94 @@ $this_month = $conn->query("SELECT SUM(amount) AS total FROM expenses
                             AND YEAR(expense_date)=YEAR(CURDATE())")
                             ->fetch_assoc()['total'] ?? 0;
 
-// ===== Fetch Category-wise =====
-$result_cat = $conn->query("SELECT c.category_name, SUM(e.amount) as total
-                            FROM expenses e
-                            JOIN categories c ON e.category_id = c.category_id
-                            WHERE e.user_id='$user'
-                            GROUP BY c.category_name");
+// Monthly budget
+$monthly_budget = 50000; // ₹50,000
+$balance_left = $monthly_budget - $this_month;
+if($balance_left < 0) $balance_left = 0;
 
-// ===== Custom PDF Class =====
-class PDF extends FPDF {
-    public $username;
-    public $userid;
+// Fetch total spent per category
+$cat_query = $conn->query("SELECT c.category_name, SUM(e.amount) as total
+                           FROM expenses e
+                           JOIN categories c ON e.category_id = c.category_id
+                           WHERE e.user_id='$user'
+                           GROUP BY c.category_name");
 
-    function Header() {
-        // Title
-        $this->SetFont('Arial','B',16);
-        $this->Cell(190,10,'Expense Report',0,1,'C');
-        $this->Ln(3);
-
-        // User info
-        $this->SetFont('Arial','I',11);
-        $this->Cell(95,8,"User ID: ".$this->userid,0,0,'L');
-        $this->Cell(95,8,"Username: ".$this->username,0,1,'R');
-        $this->Ln(5);
-
-        // Line
-        $this->SetDrawColor(50,50,50);
-        $this->Line(10,35,200,35);
-        $this->Ln(10);
-    }
-
-    function Footer() {
-        // Position at 1.5 cm from bottom
-        $this->SetY(-15);
-        $this->SetFont('Arial','I',9);
-        $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
-    }
+$categories = [];
+$totals = [];
+while($row = $cat_query->fetch_assoc()){
+    $categories[] = $row['category_name'];
+    $totals[] = $row['total'];
 }
 
-$pdf = new PDF();
-$pdf->username = $username;
-$pdf->userid   = $user;
-$pdf->AliasNbPages();
+// FPDF setup
+$pdf = new FPDF();
 $pdf->AddPage();
 
-// ===== Summary =====
-$pdf->SetFont('Arial','B',13);
-$pdf->Cell(190,10,'Summary Overview',0,1,'L');
-$pdf->Ln(2);
+// Title
+$pdf->SetFont('Arial','B',16);
+$pdf->SetTextColor(0,0,0);
+$pdf->Cell(0,10,"Expense Report",0,1,'C');
+$pdf->Ln(3);
 
+// Optional: date range / generated date
 $pdf->SetFont('Arial','',12);
-$pdf->Cell(60,8,"Today: Rs. ".number_format($today,2),0,1);
-$pdf->Cell(60,8,"This Week: Rs. ".number_format($this_week,2),0,1);
-$pdf->Cell(60,8,"This Month: Rs. ".number_format($this_month,2),0,1);
+$pdf->Cell(0,6,"Report Generated on: ".date("d-M-Y H:i"),0,1,'C');
 $pdf->Ln(8);
 
-// ===== Category Table =====
-$pdf->SetFont('Arial','B',13);
-$pdf->Cell(190,10,'Category-wise Expenses',0,1,'L');
-$pdf->Ln(2);
-
+// Summary Section: boxes
+$boxHeight = 18;
 $pdf->SetFont('Arial','B',12);
-$pdf->SetFillColor(200,220,255);
-$pdf->Cell(95,10,'Category',1,0,'C',true);
-$pdf->Cell(95,10,'Total (Rs.)',1,1,'C',true);
+$pdf->SetTextColor(0,0,0);
 
-$pdf->SetFont('Arial','',12);
-if ($result_cat && $result_cat->num_rows > 0) {
-    while ($row = $result_cat->fetch_assoc()) {
-        $pdf->Cell(95,8,$row['category_name'],1,0,'C');
-        $pdf->Cell(95,8,number_format($row['total'],2),1,1,'C');
-    }
+// Column widths
+$w1 = 45; $w2 = 45; $w3 = 45; $w4 = 55;
+
+// Labels row
+$pdf->SetFillColor(230,230,230);
+$pdf->Cell($w1,$boxHeight,"Today",1,0,'C',true);
+$pdf->Cell($w2,$boxHeight,"This Week",1,0,'C',true);
+$pdf->Cell($w3,$boxHeight,"This Month",1,0,'C',true);
+$pdf->Cell($w4,$boxHeight,"Balance Left",1,1,'C',true);
+
+// Values row
+$pdf->SetFont('Arial','B',12);
+$pdf->SetTextColor(255,255,255);
+$pdf->SetFillColor(0,120,215);
+$pdf->Cell($w1,$boxHeight,number_format($today,2),1,0,'C',true);
+$pdf->Cell($w2,$boxHeight,number_format($this_week,2),1,0,'C',true);
+$pdf->Cell($w3,$boxHeight,number_format($this_month,2),1,0,'C',true);
+
+// Balance Left color
+if($balance_left>0){
+    $pdf->SetFillColor(76,175,80); // green
 } else {
-    $pdf->Cell(190,8,'No expenses found.',1,1,'C');
+    $pdf->SetFillColor(244,67,54); // red
+}
+$pdf->Cell($w4,$boxHeight,number_format($balance_left,2),1,1,'C',true);
+$pdf->Ln(10);
+
+// Total Spent by Category
+$pdf->SetFont('Arial','B',14);
+$pdf->SetTextColor(0,0,0);
+$pdf->Cell(0,8,"Total Amount Spent by Category",0,1);
+$pdf->Ln(3);
+
+// Table header
+$pdf->SetFont('Arial','B',12);
+$pdf->SetFillColor(240,240,240);
+$pdf->Cell(100,8,"Category",1,0,'C',true);
+$pdf->Cell(80,8,"Total Amount",1,1,'C',true);
+
+// Table data
+$pdf->SetFont('Arial','',12);
+$fill=false;
+foreach($categories as $i=>$cat){
+    $pdf->SetFillColor($fill?245:255, $fill?245:255, $fill?245:255);
+    $pdf->Cell(100,8,$cat,1,0,'C',true);
+    $pdf->Cell(80,8,number_format($totals[$i],2),1,1,'C',true);
+    $fill = !$fill;
 }
 
-$pdf->Output("D","Expense_Report.pdf");
-?>
+// Output PDF
+$pdf->Output("I","Expense_Report.pdf");
+
