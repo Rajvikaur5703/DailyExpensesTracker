@@ -78,6 +78,18 @@ $today_expenses = $conn->query("SELECT SUM(amount) AS total FROM expenses
                                 WHERE user_id='$user' AND DATE(expense_date)=CURDATE()")
                        ->fetch_assoc()['total'] ?? 0;
 
+$total_income = $conn->query("SELECT SUM(amount) AS total FROM income WHERE user_id='$user'")
+                    ->fetch_assoc()['total'] ?? 0;
+
+// This month’s income
+// $this_month_income = $conn->query("
+//     SELECT SUM(amount) AS month_total 
+//     FROM income 
+//     WHERE user_id='$user' 
+//     AND MONTH(income_date)=MONTH(CURDATE()) 
+//     AND YEAR(income_date)=YEAR(CURDATE())
+// ")->fetch_assoc()['month_total'] ?? 0;
+$balance = $total_income - $total_expenses;
 /* =======================
    Fetch Recent Expenses
    ======================= */
@@ -131,6 +143,7 @@ $categories = $categories_result->fetch_all(MYSQLI_ASSOC);
         <h2>User</h2> 
         <ul> 
             <li><a href="#">Dashboard</a></li> 
+            <li><a href="add_income.php">Add Income</a></li>
             <li><a href="view_expense.php">View Expense</a></li> 
             <li><a href="reports.php">Report</a></li> 
             <li><a href="profile.php">Profile</a></li> 
@@ -157,6 +170,16 @@ $categories = $categories_result->fetch_all(MYSQLI_ASSOC);
                 <h3>Total Expenses</h3> 
                 <p>₹<?= number_format($total_expenses, 2) ?></p> 
             </div> 
+            <div class='card'> 
+                <h3>Balance</h3> 
+                <p>₹<?= number_format($balance, 2) ?></p> 
+            </div>
+
+            <div class='card'> 
+                <h3>Total Income</h3> 
+                <p>₹<?= number_format($total_income, 2) ?></p> 
+            </div>
+
         </div>
 
 
@@ -260,3 +283,4 @@ $categories = $categories_result->fetch_all(MYSQLI_ASSOC);
     </script>
 </body> 
 </html>
+
