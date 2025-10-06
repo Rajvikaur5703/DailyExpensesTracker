@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 // Prevent browser from caching login page
@@ -6,6 +5,17 @@ header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 header("Expires: 0");
+
+// 🔹 If already logged in, redirect immediately
+if (isset($_SESSION['user_id'])) {
+    if ($_SESSION['role'] === 'admin') {
+        header("Location: admin/admin_dashboard.php");
+        exit;
+    } else {
+        header("Location: users/dashboard.php");
+        exit;
+    }
+}
 
 $error="";
 $email_value="";
@@ -29,11 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['name']   = $row['name'];
             $_SESSION['role']   = $row['role'];
-
-            // Insert login record
-            $stmt = $conn->prepare("INSERT INTO user_logins (user_id) VALUES (?)");
-            $stmt->bind_param("i", $row['user_id']);
-            $stmt->execute();
 
             if ($row['role'] === 'admin') {
                 header("Location: admin/admin_dashboard.php");
@@ -93,3 +98,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </form>
 </body>
 </html>
+
