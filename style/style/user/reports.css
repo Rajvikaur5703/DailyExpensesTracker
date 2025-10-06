@@ -1,0 +1,149 @@
+/* ============ Global Styles ============ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #f4f6f8;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+/* Top Bar */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.top-bar h1 {
+  font-size: 28px;
+  color: #0078D7;
+}
+
+.download-btn {
+  padding: 10px 20px;
+  background-color: #0078D7;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.download-btn:hover {
+  background-color: #005ea3;
+}
+
+/* Summary Cards */
+.summary-wrapper {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.summary-card, .balance-card {
+  flex: 1;
+  min-width: 180px;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.summary-card:hover, .balance-card:hover {
+  transform: translateY(-5px);
+}
+
+.summary-card h3, .balance-card h3 {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.summary-card p, .balance-card p {
+  font-size: 22px;
+  font-weight: bold;
+  color: #0078D7;
+}
+
+.balance-card p {
+  color: #fff; /* white text for colored balance card */
+}
+/* Wrapper for left category list + right chart */
+.category-chart-wrapper {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+/* Left: category summary */
+.category-summary {
+  flex: 1;
+  min-width: 250px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.category-summary h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #0078D7;
+}
+
+.category-summary ul {
+  list-style: none;
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.category-summary ul li {
+  background-color: #f0f4f8;
+  padding: 12px 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.category-summary ul li:hover {
+  background-color: #d9e6f5;
+}
+
+/* Right: doughnut chart */
+.chart-box {
+  flex: 1;
+  min-width: 250px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  height: 300px; /* fixed height for chart */
+}
+
+.chart-box h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #0078D7;
+}
+
+.chart-box canvas {
+  width: 100% !important;
+  height: 220px !important; /* smaller than box height */
+}
