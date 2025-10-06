@@ -19,15 +19,13 @@ $this_month = $conn->query("SELECT SUM(amount) AS total FROM expenses
                             AND YEAR(expense_date)=YEAR(CURDATE())")
                             ->fetch_assoc()['total'] ?? 0;
 
-// Define monthly budget (example, could be from user settings)
-$monthly_budget = 50000; // ₹50,000 budget
+// Monthly budget
+$monthly_budget = 50000; // ₹50,000
 $balance_left = $monthly_budget - $this_month;
-if($balance_left < 0) $balance_left = 0; // prevent negative
-
-// Optional: color for balance card
+if($balance_left < 0) $balance_left = 0;
 $balance_color = ($balance_left > 0) ? '#4caf50' : '#f44336';
 
-// Fetch categories for chart
+// Fetch categories for summary
 $cat_query = $conn->query("SELECT c.category_name, SUM(e.amount) as total
                            FROM expenses e
                            JOIN categories c ON e.category_id = c.category_id
@@ -40,32 +38,21 @@ while ($row = $cat_query->fetch_assoc()) {
     $categories[] = $row['category_name'];
     $totals[] = $row['total'];
 }
-
-// Last 7 days
-$days = [];
-$day_totals = [];
-for ($i = 6; $i >= 0; $i--) {
-    $day = date("Y-m-d", strtotime("-$i days"));
-    $days[] = $day;
-    $res = $conn->query("SELECT SUM(amount) as total FROM expenses 
-                         WHERE user_id='$user' AND DATE(expense_date)='$day'")
-                         ->fetch_assoc()['total'] ?? 0;
-    $day_totals[] = $res;
-}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Expense Report</title>
-  <link rel="stylesheet" href="../style/reports.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="../style/reports.css">
 </head>
 <body>
+
   <div class="top-bar">
-    <h1>📊 Expense Report</h1>
+    <h1>Expense Report</h1>
     <button class="download-btn" onclick="window.location.href='generate_report.php'">⬇ Download Report</button>
   </div>
 
@@ -74,69 +61,56 @@ for ($i = 6; $i >= 0; $i--) {
     <div class="summary-card"><h3>Today</h3><p>₹<?= number_format($today, 2) ?></p></div>
     <div class="summary-card"><h3>This Week</h3><p>₹<?= number_format($this_week, 2) ?></p></div>
     <div class="summary-card"><h3>This Month</h3><p>₹<?= number_format($this_month, 2) ?></p></div>
+    <div class="balance-card" style="background-color: <?= $balance_color ?>;">
+      <h3>Balance Left</h3>
+      <p>₹<?= number_format($balance_left, 2) ?></p>
+    </div>
   </div>
-  <div class="charts-wrapper">
-      <!-- Category Doughnut Chart -->
+
+  <div class="category-chart-wrapper">
+  <!-- Left: Total Spent by Category -->
+  <div class="category-summary">
+    <h2>Total Spent by Category</h2>
+    <ul>
+      <?php foreach($categories as $i => $cat): ?>
+        <li>
+          <span><?= htmlspecialchars($cat) ?></span>
+          <span>₹<?= number_format($totals[$i], 2) ?></span>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  </div>
+
+  <!-- Right: Doughnut Chart -->
   <div class="chart-box">
-    <h2>🥧 Expenses by Category</h2>
+    <h2>Expenses Distribution</h2>
     <canvas id="expenseCategoryChart"></canvas>
   </div>
+</div>
 
-  <!-- 7 Days Bar Chart -->
-  <div class="chart-box">
-    <h2>📅 Last 7 Days Expenses</h2>
-    <canvas id="expense7DaysChart"></canvas>
-  </div>
-
-  <script>
-    // Doughnut Chart
-    new Chart(document.getElementById('expenseCategoryChart'), {
-      type: 'doughnut',
-      data: {
-        labels: <?= json_encode($categories) ?>,
-        datasets: [{
-          data: <?= json_encode($totals) ?>,
-          backgroundColor: [
-            '#1976d2','#64b5f6','#90caf9','#0d47a1','#42a5f5','#1565c0','#2196f3','#1e88e5'
-          ]
-        }]
-      },
-      options: {
-        responsive: true,
-        cutout: '60%',
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: {
-              usePointStyle: true,
-              pointStyle: 'circle'
-            }
-          }
-        }
-      }
-    });
-
-    // 7 Days Bar Chart
-    new Chart(document.getElementById('expense7DaysChart'), {
-      type: 'bar',
-      data: {
-        labels: <?= json_encode($days) ?>,
-        datasets: [{
-          label: 'Daily Expenses (₹)',
-          data: <?= json_encode($day_totals) ?>,
-          backgroundColor: '#1976d2'
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-  </script>
-  </div>
+<script>
+new Chart(document.getElementById('expenseCategoryChart'), {
+  type: 'doughnut',
+  data: {
+    labels: <?= json_encode($categories) ?>,
+    datasets: [{
+      data: <?= json_encode($totals) ?>,
+      backgroundColor: [
+        '#0078D7', '#00A2FF', '#69C9FF', '#A5E3FF', '#C7F0FF', '#E6F8FF'
+      ],
+      borderColor: '#fff',
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '60%',
+    plugins: {
+      legend: { position: 'bottom', labels: { usePointStyle: true, pointStyle: 'circle' } }
+    }
+  }
+});
+</script>
 </body>
 </html>
