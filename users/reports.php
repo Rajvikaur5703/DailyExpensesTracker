@@ -19,11 +19,19 @@ $this_month = $conn->query("SELECT SUM(amount) AS total FROM expenses
                             AND YEAR(expense_date)=YEAR(CURDATE())")
                             ->fetch_assoc()['total'] ?? 0;
 
-// Monthly budget
-$monthly_budget = 50000; // ₹50,000
-$balance_left = $monthly_budget - $this_month;
+// Fetch total income for the month
+$total_income_month = $conn->query("SELECT SUM(amount) AS total 
+                                   FROM income 
+                                   WHERE user_id='$user' 
+                                   AND MONTH(income_date) = MONTH(CURDATE()) 
+                                   AND YEAR(income_date) = YEAR(CURDATE())")
+                                   ->fetch_assoc()['total'] ?? 0;
+
+// Calculate balance left
+$balance_left = $total_income_month - $this_month; // income - expenses
 if($balance_left < 0) $balance_left = 0;
 $balance_color = ($balance_left > 0) ? '#4caf50' : '#f44336';
+
 
 // Fetch categories for summary
 $cat_query = $conn->query("SELECT c.category_name, SUM(e.amount) as total
