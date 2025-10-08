@@ -5,7 +5,7 @@ include '../includes/session_check.php';
 $user_id = $_SESSION['user_id'];
 
 // Fetch existing user data
-$sql = "SELECT name, email, dob, gender, mobileno, profile_photo FROM users WHERE user_id=?";
+$sql = "SELECT name, email, dob, gender, profile_photo FROM users WHERE user_id=?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -34,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['remove_photo'])) {
     $email    = $_POST['email'];
     $dob      = $_POST['dob'];
     $gender   = $_POST['gender'];
-    $mobileno = $_POST['mobileno'];
     $password = $_POST['password'];
 
     // Handle photo upload
@@ -56,13 +55,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['remove_photo'])) {
     // Update query
     if (!empty($password)) {
         $hashed = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "UPDATE users SET name=?, email=?, dob=?, gender=?, mobileno=?, password=?, profile_photo=? WHERE user_id=?";
+        $sql = "UPDATE users SET name=?, email=?, dob=?, gender=?,  password=?, profile_photo=? WHERE user_id=?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssissi", $name, $email, $dob, $gender, $mobileno, $hashed, $photo, $user_id);
+        $stmt->bind_param("ssssissi", $name, $email, $dob, $gender,  $hashed, $photo, $user_id);
     } else {
-        $sql = "UPDATE users SET name=?, email=?, dob=?, gender=?, mobileno=?, profile_photo=? WHERE user_id=?";
+        $sql = "UPDATE users SET name=?, email=?, dob=?, gender=?,  profile_photo=? WHERE user_id=?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssisi", $name, $email, $dob, $gender, $mobileno, $photo, $user_id);
+        $stmt->bind_param("sssssi", $name, $email, $dob, $gender, $photo, $user_id);
     }
 
     if ($stmt->execute()) {
@@ -137,12 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['remove_photo'])) {
               <option value="Other" <?php if ($user['gender']==='Other') echo 'selected'; ?>>Other</option>
             </select>
           </div>
-
-          <div class="form-group">
-            <label>Mobile</label>
-            <input type="text" name="mobileno" value="<?php echo htmlspecialchars($user['mobileno']); ?>">
-          </div>
-
+          
           <div class="form-group">
             <label>New Password</label>
             <input type="password" name="password" placeholder="Leave blank to keep same">
