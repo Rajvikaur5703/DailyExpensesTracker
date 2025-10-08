@@ -70,9 +70,6 @@ $result = $stmt->get_result();
 
         <button type="submit">Filter</button>
         <a href="view_expense.php" class="reset-btn" onclick="document.getElementById('categoryHidden').value='';">Reset</a>
-
-
-
     </form>
 
     <!-- EXPENSE TABLE -->
