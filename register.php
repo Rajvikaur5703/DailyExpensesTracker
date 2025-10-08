@@ -47,7 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //-------------- Insert user with hashed password------------------
     $hashed = password_hash($password, PASSWORD_DEFAULT);
 
-    $stmt = $conn->prepare("INSERT INTO users (name,dob,gender,email,password) VALUES (?,?,?,?,?)");
+     // Insert user, now including created_at
+    $stmt = $conn->prepare("INSERT INTO users (name,dob,gender,email,password,created_at) VALUES (?,?,?,?,?,NOW())");
     $stmt->bind_param("sssss", $name, $dob, $gender, $email, $hashed);
 
     if ($stmt->execute()) {
@@ -124,4 +125,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 </body>
 </html>
-
