@@ -1,0 +1,90 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f9ff; /* light sky blue */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding-top: 20px; /* push form down a little */
+    overflow: hidden;
+}
+
+/* Form container */
+.container {
+    background: #ffffff;
+    padding: 45px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    width: 420px;
+    transition: all 0.3s ease;
+    position: fixed;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Title */
+.container-title h1 {
+    margin: 0;
+    padding: 10px 0;
+    font-size: 26px;
+    text-align: center;
+    color: #0ea5e9; /* sky blue heading */
+}
+
+/* Main form */
+.container-main {
+    margin-top: 20px;
+}
+
+.container-main label {
+    display: block;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #1e293b; /* slate gray */
+    font-weight: 500;
+}
+
+/* Input fields */
+.container-main input[type="text"],
+.container-main input[type="date"],
+.container-main input[type="number"],
+.container-main select {
+    width: 100%;
+    padding: 12px 12px;
+    margin-top: 7px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+    background: #f9fafb;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container-main input:focus,
+.container-main select:focus {
+    border-color: #0ea5e9;
+    box-shadow: 0 0 6px rgba(14, 165, 233, 0.3);
+    outline: none;
+}
+
+/* Submit button */
+button {
+    font-weight: bold;
+    width: 100%;
+    background: #0ea5e9; /* sky blue */
+    color: white;
+    padding: 12px;
+    margin-top: 25px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #0284c7; /* deeper blue */
+    transform: scale(1.05);
+}

@@ -7,42 +7,45 @@
 }
 
 body {
-    background: #f0f9ff;
+    background: #f0f2f5;
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 40px;
     min-height: 100vh;
 }
 
 /* ===== CARD ===== */
 .profile-card {
-    background: #fff;
-    padding: 25px 30px;
+    width: 45%;  /* each form takes 45% space */
+    border: 1px solid #ddd;
+    padding: 20px;
     border-radius: 10px;
-    width: 600px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    /* margin-right: 600px;
+    background: #fff;
+    padding: 35px 40px;
+    border-radius: 10px;
+    width: 60px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); */
 }
 
 .title {
-    margin: 0;
-    padding: 10px;
-    font-size: 24px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
     text-align: center;
-    color: #0ea5e9;
-}
-
-p{
-    padding: 5px;
-    text-align: center;
-    color: #475569;
     margin-bottom: 20px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
 }
 
 /* ===== FORM LAYOUT ===== */
 .profile-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr; */
+    gap: 10px;
 }
 
 .form-group {
@@ -59,6 +62,7 @@ p{
 
 .form-group input,
 .form-group select {
+    margin-bottom:10px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
@@ -74,52 +78,42 @@ p{
     background: #fff;
 }
 
-button {
-    width: 100%;
-    background: #0ea5e9; /* sky blue */
-    color: white;
-    padding: 12px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-button:hover {
-    background: #0284c7; /* deeper blue */
-    transform: scale(1.05);
-}
-
-.form-actions p{
-    text-align: center;
-    font-size: 15px;
-    margin-top: 10px;
-    color: #475569;
-}
-
-.form-actions a {
-    color: #0ea5e9;
-    text-decoration: none;
-}
-
 /* ===== BUTTONS ===== */
-.btn-primary{
-    width: 208%;
-    background: #0ea5e9; /* sky blue */
-    color: white;
-    padding: 12px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+.form-actions {
+    grid-column: span 2; /* full width row */
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
 }
 
-.btn-primary a{
-    color: white;
+.btn {
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background 0.2s ease;
+}
+
+.btn-cancel {
+    text-decoration: none;
+    background: #ecf0f1;
+    color: #2c3e50;
+}
+
+.btn-cancel:hover {
+    background: #dcdde1;
+}
+
+.btn-save {
+    background: #3498db;
+    color: #fff;
+}
+
+.btn-save:hover {
+    background: #2980b9;
 }
 
 /* ===== RESPONSIVE ===== */
