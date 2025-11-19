@@ -1,0 +1,106 @@
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    /* font-family: Arial, sans-serif; */
+    background-color: #f0f9ff; /* very light sky blue */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Centering form */
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Login box */
+.loginbox {
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    width: 420px;
+}
+
+/* Title section */
+.login-title h1 {
+    margin: 0;
+    padding: 10px;
+    font-size: 24px;
+    text-align: center;
+    color: #0ea5e9; /* primary sky blue */
+}
+
+.login-title p {
+    padding: 5px;
+    text-align: center;
+    color: #475569; /* slate gray */
+}
+
+/* Form fields */
+.login-main {
+    margin-top: 15px;
+}
+
+.login-main label {
+    display: block;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+    color: #34495e;
+}
+
+.login-main 
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    margin-top: 7px;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    font-size: 14px;
+    background: #f9fafb;
+    color: #0f172a;
+}
+
+/* Login button */
+button {
+    width: 100%;
+    background: #0ea5e9; /* sky blue */
+    color: white;
+    padding: 12px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #0284c7; /* deeper blue on hover */
+    transform: scale(1.05);
+}
+
+/* Links */
+p {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+    color: #475569;
+}
+
+p a {
+    color: #0ea5e9;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+p a:hover {
+    text-decoration: underline;
+    color: #0284c7;
+}

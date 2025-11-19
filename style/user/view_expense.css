@@ -1,0 +1,180 @@
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ===== BODY ===== */
+body {
+  background: linear-gradient(135deg, #f3f8ff, #e5edff);
+  color: #333;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 30px 35px;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ===== HEADING ===== */
+h2 {
+  text-align: center;
+  color: #2563eb; /* dashboard blue */
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+}
+
+/* ===== FILTER FORM ===== */
+.filter-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 25px;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.filter-box label {
+  font-weight: 600;
+  color: #475569;
+  font-size: 0.9rem;
+  width: 100px;
+}
+
+.filter-box input[type="text"],
+.filter-box input[type="date"] {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.95rem;
+  background: #f8f9ff;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.filter-box input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 6px rgba(37, 99, 235, 0.25);
+  outline: none;
+  background: #fff;
+}
+
+/* ===== BUTTONS ===== */
+.filter-box button {
+  padding: 10px 20px;
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-box button:hover {
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  transform: translateY(-2px);
+}
+
+.filter-box .reset-btn {
+  text-decoration: none;
+  padding: 10px 20px;
+  background: #eceffb;
+  color: #2563eb;
+  font-weight: 600;
+  border-radius: 25px;
+  transition: 0.3s ease;
+}
+
+.filter-box .reset-btn:hover {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* ===== TABLE ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+th {
+  background: #3b82f6;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+tr:nth-child(even) {
+  background: #f8f9ff;
+}
+
+tr:hover {
+  background: #e6f0ff;
+  transition: 0.3s ease;
+}
+
+/* ===== BACK BUTTON ===== */
+.btn-back {
+  text-align: right;
+  margin-top: 15px;
+}
+
+.back-btn {
+  text-decoration: none;
+  color: #2563eb;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.back-btn:hover {
+  color: #3b82f6;
+  text-decoration: underline;
+}
+
+.btnfilter{
+  font-size: 15px;
+  font-weight: bold;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 5px;
+  background: #3b82f6;
+  color: white;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .container {
+    padding: 25px 20px;
+  }
+
+  .filter-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-box label {
+    width: auto;
+  }
+
+  table th, table td {
+    font-size: 0.9rem;
+  }
+}
